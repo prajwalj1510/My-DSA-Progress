@@ -90,3 +90,53 @@ int main() {
 
 Output: 3,2,
 Total Subsequence with sum 5:1
+
+===============================================================================================================================================================================================================
+#include<bits/stdc++.h>
+using namespace std;
+
+void subsequence(int ind, vector<int> &arr, int &maxi, int sum  , vector<int> &ds, vector<vector<int>> &ans) {
+    
+    if(ind == arr.size()) {
+        if(sum > maxi) {
+            maxi = sum ;
+            ans.push_back(ds) ;
+        }
+        return ;
+    }
+    
+    // Pick 
+    ds.push_back(arr[ind]); 
+    subsequence(ind+1, arr, maxi, sum + arr[ind], ds, ans) ;
+    ds.pop_back() ;
+    
+    // Not Pick
+    subsequence(ind+1, arr, maxi, sum ,  ds, ans) ;
+}
+
+
+int main() {
+    // Write C++ code here
+    vector<int> arr = {3,1,2}; 
+    int maxi = INT_MIN ;
+    
+    // Printing all Subsequences
+    vector<int> ds ; 
+    vector<vector<int>> ans ;
+    subsequence(0, arr, maxi , 0 ,  ds, ans) ;
+    
+    for(vector<int> nums : ans) {
+        for(int num : nums) {
+            cout << num ; 
+        }
+        cout << endl ;
+    }
+    
+    cout << "Max Value of Subsequence: " << maxi ; 
+
+
+    return 0;
+}
+
+Output: 312
+Max Value of Subsequence: 6
