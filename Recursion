@@ -188,3 +188,60 @@ int main() {
 }
 
 Output: 223||7||
+
+**************************************************************************************************************************************************************************************************************
+#include<bits/stdc++.h>
+using namespace std;
+
+void combSumII(int ind, vector<int> &arr, int target, vector<int> &ds, set<vector<int>> &st ) {
+    
+    if(target == 0) {
+        sort(ds.begin(), ds.end()) ;
+        st.insert(ds) ;
+        return ;
+    }
+    
+    if(ind == arr.size()) {
+        return ;
+    }
+    
+    // Pick
+    if(arr[ind] <= target) {
+        ds.push_back(arr[ind]) ;
+        combSumII(ind+1 , arr, target - arr[ind], ds, st) ;
+        ds.pop_back() ;
+    }
+    
+    // Not Pick
+    combSumII(ind + 1, arr, target, ds, st) ;
+}
+
+int main() {
+    // Write C++ code here
+    vector<int> arr = {10,1,2,7,6,1,5};
+    int target = 8 ;
+    
+    set<vector<int>> st; 
+    vector<vector<int>> ans ;
+    vector<int> ds ;
+    
+    combSumII(0, arr, target, ds, st) ;
+    
+    for(vector<int> nums : st) {
+        ans.push_back(nums) ;
+    }
+    
+    for(vector<int> nums: ans) {
+        for(int num : nums) {
+            cout << num ;
+        }
+        cout << endl ;
+    } 
+    return 0;
+}
+
+Output: 
+116
+125
+17
+26
