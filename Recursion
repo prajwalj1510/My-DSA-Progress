@@ -91,7 +91,7 @@ int main() {
 Output: 3,2,
 Total Subsequence with sum 5:1
 
-===============================================================================================================================================================================================================
+==============================================================================================================================================================================================================
 #include<bits/stdc++.h>
 using namespace std;
 
@@ -140,3 +140,51 @@ int main() {
 
 Output: 312
 Max Value of Subsequence: 6
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+#include<bits/stdc++.h>
+using namespace std;
+
+void combSum(int ind, vector<int> &arr, int target, vector<int> &ds, vector<vector<int>> &ans ) {
+    
+    if(target == 0) {
+        ans.push_back(ds) ;
+        return ;
+    }
+    
+    if(ind == arr.size()) {
+        return ;
+    }
+    
+    // Pick
+    if(arr[ind] <= target) {
+        ds.push_back(arr[ind]) ;
+        combSum(ind , arr, target - arr[ind], ds, ans) ;
+        ds.pop_back() ;
+    }
+    
+    // Not Pick
+    combSum(ind + 1, arr, target, ds, ans) ;
+}
+
+int main() {
+    // Write C++ code here
+    vector<int> arr = {2,3,6,7};
+    int target = 7 ;
+    
+    vector<vector<int>> ans ;
+    vector<int> ds ;
+    
+    combSum(0, arr, target, ds, ans) ;
+    
+    for(vector<int> nums: ans) {
+        for(int num : nums) {
+            cout << num ;
+        }
+        cout << "||" ;
+    } 
+    return 0;
+}
+
+Output: 223||7||
