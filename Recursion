@@ -287,3 +287,51 @@ int main() {
     
     return 0;
 }
+
+______________________________________________________________________________________________________________________________________________________________________________________________________________
+#include<bits/stdc++.h>
+using namespace std;
+void subSetSum(int ind, vector<int> &arr, int sum , vector<int> &store, vector<int> &ds, vector<vector<int>> &ans) {
+    
+    if(ind == arr.size()) {
+        store.push_back(sum) ;
+        ans.push_back(ds) ;
+        return; 
+    }
+    
+    // Pick
+    ds.push_back(arr[ind]) ;
+    subSetSum(ind+1, arr, sum + arr[ind], store, ds, ans) ;
+    ds.pop_back() ;
+    
+    // Not Pick
+    subSetSum(ind+1, arr, sum, store, ds, ans);
+}
+
+int main() {
+    // Write C++ code here
+    vector<int> arr = {3,1,2};
+    
+    vector<vector<int>> ans ;
+    vector<int> ds , store;
+    
+    subSetSum(0, arr, 0,store, ds, ans) ;
+    
+    cout << "Sum Stored: ";
+    for(int num : store) {
+        cout << num << " " ;
+    }
+    
+    cout << endl << "The SubSet: "; 
+    for(vector<int> nums : ans) {
+        for(int num : nums) {
+            cout << num <<" " ;
+        }
+        cout << "||" ;
+    }
+    
+    return 0;
+} 
+
+Output: Sum Stored: 6 4 5 3 3 1 2 0 
+The SubSet: 3 1 2 ||3 1 ||3 2 ||3 ||1 2 ||1 ||2 ||||
