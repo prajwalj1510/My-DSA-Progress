@@ -489,3 +489,55 @@ int main() {
 
 Output: 
 Palindromic Substring are: a || a || b || aa || b || 
+______________________________________________________________________________________________________________________________________________________________________________________________________________
+#include<bits/stdc++.h>
+using namespace std;
+// Permutations 
+void genPermutation(vector<int> &arr, vector<int> &freq ,vector<int> &ds, vector<vector<int>> &ans) {
+    
+    if(ds.size() == arr.size()) {
+        ans.push_back(ds) ;
+        return ;
+    }
+    
+    for(int i = 0 ; i < arr.size() ; i++) {
+        if(!freq[i]) {
+            freq[i] = 1 ;
+            ds.push_back(arr[i]) ;
+            
+            genPermutation(arr, freq, ds, ans) ;
+            
+            ds.pop_back() ;
+            freq[i] = 0 ;
+        }
+    }
+    
+}
+
+int main() {
+    
+    vector<int> arr = {1, 2, 3} ;
+    int n = arr.size() ;
+    vector<int> ds ;
+    vector<vector<int>> ans ;
+    vector<int> freq(n, 0) ;
+    
+    genPermutation(arr,freq, ds, ans) ;
+    
+    for(vector<int> nums : ans) {
+        for(int num : nums) {
+            cout << num <<" " ;
+        }
+        cout << endl ;
+    }
+    
+    return 0;
+}
+
+Output:
+1 2 3 
+1 3 2 
+2 1 3 
+2 3 1 
+3 1 2 
+3 2 1 
