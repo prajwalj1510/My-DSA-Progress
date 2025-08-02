@@ -1,0 +1,24 @@
+#include<bits/stdc++.h>
+using namespace std;
+// Max sum of non-adjacent elements: Recursion 
+int solve(int index, vector<int> &arr) {
+    // Base Cond
+    if(index < 0) return 0 ;
+    if(index == 0) return arr[0] ;
+    
+    // Pick
+    int pick = arr[index] + solve(index-2, arr) ;
+    
+    // Not Pick
+    int notPick = solve(index-1, arr) ;
+    
+    // Return Max sum of non-adj elements
+    return max(pick, notPick) ;
+}
+
+int main() {
+    vector<int> arr = {2,1,4,9} ;
+    cout << solve(arr.size()-1, arr) ;
+}
+
+Output: 11
