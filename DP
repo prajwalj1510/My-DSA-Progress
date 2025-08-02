@@ -22,3 +22,31 @@ int main() {
 }
 
 Output: 11
+
+#include<bits/stdc++.h>
+using namespace std;
+// Max sum of non-adjacent elements: Recursion + Memoization
+int solve(int index, vector<int> &arr, vector<int> &dp) {
+    // Base Cond
+    if(index < 0) return 0 ;
+    if(index == 0) return arr[0] ;
+    
+    // Pre visited: return stored value
+    if(dp[index] != -1) return dp[index] ;
+    
+    // Pick
+    int pick = arr[index] + solve(index-2, arr, dp) ;
+    
+    // Not Pick
+    int notPick = solve(index-1, arr, dp) ;
+    
+    // Return Max sum of non-adj elements
+    return dp[index] =  max(pick, notPick) ;
+}
+
+int main() {
+    vector<int> arr = {2,1,4,9} ;
+    vector<int> dp(arr.size(),-1) ;
+    cout << solve(arr.size()-1, arr, dp) ;
+}
+Output: 11
