@@ -434,3 +434,58 @@ int main() {
 Output: 
 Sum Stored: 0 1 3 5 2 4 
 The SubSet: ||||1 ||1 2 ||1 2 2 ||2 ||2 2 ||
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#include<bits/stdc++.h>
+using namespace std;
+// Palindromic Substring using recursions
+bool isPalindrome(int start, int end, string s) {
+    
+    while(start <= end) {
+        if(s[start] != s[end]) {
+            return false ;
+        }
+        start++ ;
+        end-- ;
+    }
+    return true ;
+}
+
+void partition(int ind, string s, vector<string> &ds, vector<vector<string>> &ans ) {
+    
+    if(ind == s.size()) {
+        ans.push_back(ds) ;
+        return ;
+    }
+    
+    for(int i = ind; i < s.size(); i++ ) {
+        if(isPalindrome(ind, i , s)) {
+            ds.push_back(s.substr(ind, i - ind + 1)) ;
+            partition(i+1, s, ds, ans) ;
+            ds.pop_back() ;
+        }
+    }
+}
+
+
+int main() {
+    // Write C++ code here
+    string s = "aab" ;
+    
+    vector<vector<string>> ans ;
+    vector<string> ds ;
+    
+    partition(0, s, ds, ans) ;
+    
+    cout << "Palindromic Substring are: " ;
+    for(vector<string> nums : ans) {
+        for(string ch : nums) {
+            cout << ch << " || " ; 
+        }
+    }
+    
+    return 0;
+}
+
+Output: 
+Palindromic Substring are: a || a || b || aa || b || 
