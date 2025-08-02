@@ -50,3 +50,44 @@ int main() {
     cout << solve(arr.size()-1, arr, dp) ;
 }
 Output: 11
+
+#include<bits/stdc++.h>
+using namespace std;
+// Max sum of non-adjacent elements: DP Tabulation
+int solve(int index, vector<int> &arr, vector<int> &dp) {
+    // Base Cond
+    if(index < 0) return 0 ;
+    if(index == 0) return arr[0] ;
+    
+    // Pre visited: return stored value
+    if(dp[index] != -1) return dp[index] ;
+    
+    // Pick
+    int pick = arr[index] + solve(index-2, arr, dp) ;
+    
+    // Not Pick
+    int notPick = solve(index-1, arr, dp) ;
+    
+    // Return Max sum of non-adj elements
+    return dp[index] =  max(pick, notPick) ;
+}
+
+int main() {
+    vector<int> arr = {2,1,4,9} ;
+    int n = arr.size() ;
+    
+    vector<int> dp(n,-1) ;
+    // Base Cond
+    dp[0] = arr[0] ; 
+    
+    for(int ind = 1 ; ind < n ; ind++) {
+        int pick ;
+        if(ind > 1 ) pick = arr[ind] + dp[ind-2] ;
+        int notPick = dp[ind-1] ;
+        dp[ind] =  max(pick, notPick) ;
+    }
+    
+    cout << dp[n-1] ;
+}
+
+
