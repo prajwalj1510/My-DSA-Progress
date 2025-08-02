@@ -382,3 +382,55 @@ int main() {
     
     return 0;
 }
+
+Output: 
+Sum Stored: 5 3 3 1 4 2 2 0 
+The SubSet: ||1 ||1 2 ||1 2 2 ||2 ||2 2 ||
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+#include<bits/stdc++.h>
+using namespace std;
+//SubSet Sum - II 2nd Approach, Avoiding duplicates via for-loop based condition
+void subSetSum(int ind, vector<int> &arr, int sum , vector<int> &store, vector<int> &ds, vector<vector<int>> &ans) {
+    
+    store.push_back(sum) ;
+    ans.push_back(ds) ;
+    
+    // Pick
+    for(int i = ind ; i < arr.size() ; i++) {
+        if(i != ind && arr[i] == arr[i-1]) continue ;
+        ds.push_back(arr[i]) ;
+        subSetSum(i+1, arr, sum + arr[i], store, ds, ans) ;
+        ds.pop_back() ;
+    }
+}
+
+int main() {
+    // Write C++ code here
+    vector<int> arr = {1,2,2};
+    
+    vector<vector<int>> ans ;
+    ans.push_back({}) ;
+    vector<int> ds , store;
+    
+    sort(arr.begin(), arr.end()) ;
+    subSetSum(0, arr, 0,store, ds, ans) ;
+    
+    cout << "Sum Stored: ";
+    for(int num : store) {
+        cout << num << " " ;
+    }
+    
+    cout << endl << "The SubSet: "; 
+    for(vector<int> nums : ans) {
+        for(int num : nums) {
+            cout << num <<" " ;
+        }
+        cout << "||" ;
+    }
+    
+    return 0;
+}
+Output: 
+Sum Stored: 0 1 3 5 2 4 
+The SubSet: ||||1 ||1 2 ||1 2 2 ||2 ||2 2 ||
