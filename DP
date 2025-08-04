@@ -172,3 +172,27 @@ int main() {
 }
 
 Output: Grid Unique paths: 3 Paths
+
+#include<bits/stdc++.h>
+using namespace std ;
+// Grid unique paths from (0,0) to (m,n) using Recursion + Memoization
+int solve(int m, int n, vector<vector<int>> &dp) {
+    
+    if(m == 0 && n == 0) return 1 ;
+    if(n < 0 || m < 0) return 0 ; 
+    
+    if(dp[m][n] != -1) return dp[m][n] ; 
+    
+    int up = solve(m-1,n, dp) ;
+    int left = solve(m,n-1, dp) ;
+    
+    return dp[m][n] = up + left ; 
+}
+
+int main() {
+    int m = 3 , n = 2 ;
+    
+    vector<vector<int>> dp(m, vector<int>(n,-1)) ;
+    cout << "Grid Unique paths: "<< solve(m-1,n-1, dp) << " Paths" ;
+}
+
