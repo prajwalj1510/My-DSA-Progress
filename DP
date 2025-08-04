@@ -360,3 +360,35 @@ int main() {
     
     cout << solve(m-1,n-1, maze) ;
 }
+
+#include <bits/stdc++.h>
+using namespace std ;
+// Grid with obstacles using recursion + memoization
+int solve(int m ,int n , vector<vector<int>> &maze, vector<vector<int>> &dp) {
+    
+    if(m < 0 || n < 0 || maze[m][n] == -1) return 0 ;
+    
+    if(m == 0 && n ==0) return 1 ;
+    
+    if(dp[m][n] != -1) return dp[m][n] ;
+    
+    int up = solve(m-1,n,maze, dp) ;
+    int left = solve(m,n-1,maze, dp) ;
+    return dp[m][n] =  up + left ; 
+}
+
+int main() {
+    
+    vector<vector<int>> maze = { 
+        {0,0,0},
+        {0,-1,0},
+        {0,0,0},
+    } ;
+    
+    int m = maze.size() ;
+    int n = maze[0].size() ;
+    
+    vector<vector<int>> dp(m,vector<int>(n,-1)) ;
+    
+    cout << solve(m-1,n-1, maze, dp) ;
+}
