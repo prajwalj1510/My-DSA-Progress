@@ -148,3 +148,27 @@ int main() {
 
 Output: Max Sum a robber can rob: 8
 
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#include<bits/stdc++.h>
+using namespace std ;
+
+// Grid unique paths from (0,0) to (m,n) using Recursion
+
+int solve(int m, int n) {
+    
+    if(m == 0 && n == 0) return 1 ;
+    if(n < 0 || m < 0) return 0 ; 
+    
+    int up = solve(m-1,n) ;
+    int left = solve(m,n-1) ;
+    
+    return up + left ; 
+}
+
+int main() {
+    int m = 3 , n = 2 ;
+    
+    cout << "Grid Unique paths: "<< solve(m-1,n-1) << " Paths" ;
+}
+
+Output: Grid Unique paths: 3 Paths
