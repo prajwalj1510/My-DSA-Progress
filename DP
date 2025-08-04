@@ -331,3 +331,32 @@ int main() {
     
     // cout << prev[n-1] ; 
 }
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+#include <bits/stdc++.h>
+using namespace std ;
+//Grid with obstacles using recursion
+
+int solve(int m ,int n , vector<vector<int>> &maze) {
+    
+    if(m < 0 || n < 0 || maze[m][n] == -1) return 0 ;
+    
+    if(m == 0 && n ==0) return 1 ;
+    
+    int up = solve(m-1,n,maze) ;
+    int left = solve(m,n-1,maze) ;
+    return up + left ; 
+}
+
+int main() {
+    
+    vector<vector<int>> maze = { 
+        {0,0,0},
+        {0,-1,0},
+        {0,0,0},
+    } ;
+    
+    int m = maze.size() ;
+    int n = maze[0].size() ;
+    
+    cout << solve(m-1,n-1, maze) ;
+}
