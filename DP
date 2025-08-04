@@ -508,3 +508,32 @@ int main() {
     }
     cout << prev[n-1]; 
 }
+
+##############################################################################################################################################################################################################
+#include<bits/stdc++.h>
+using namespace std ;
+// Minimum Path sum in Grids using recursion
+int solve(int m, int n, vector<vector<int>> &grid) {
+    
+    if(m < 0 || n < 0) return 1e9 ; ;
+    
+    if(m == 0 && n == 0) return grid[0][0] ; 
+    
+    int up = grid[m][n] + solve(m-1,n,grid) ;
+    int left = grid[m][n] + solve(m,n-1,grid) ;
+    
+    return min(up,left) ;
+}
+
+int main() {
+    
+    vector<vector<int>> grid = {
+        {5,9,6},
+        {11,5,2},
+    } ; 
+    
+    int m = grid.size() ;
+    int n = grid[0].size() ;
+    
+    cout << solve(m-1,n-1,grid) ;
+}
