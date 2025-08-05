@@ -1021,3 +1021,44 @@ int main() {
     
     cout << maxi ; 
 }
+
+*************************************************************************************************************************************************************************************************************
+Ninja's Training with 'N' days with '3' Activities. Return max point by completing activity.
+Recursion:
+#include<bits/stdc++.h>
+using namespace std;
+
+int solve(int day, int last, vector<vector<int>> &grid) {
+    
+    if(day == 0) {
+        int maxi = -1e9 ;
+        
+        for(int i = 0 ; i < 3 ; i++) {
+            if(i != last) {
+                maxi = max(maxi,grid[0][i]) ;
+            }
+        }
+        return maxi ;
+    }
+    
+    int maxi = -1e9 ;
+    for(int i = 0 ; i < 3 ; i++) {
+        if(i != last) {
+            int activity = grid[day][i] + solve(day-1,i,grid) ;
+            maxi = max(maxi,activity) ;
+        }
+    }
+    return maxi ;
+}
+
+int main() {
+    vector<vector<int>> grid = {
+        {10,40,70},
+        {20,50,80},
+        {30,60,90},
+    } ;
+    
+    int n = grid.size() ;
+    
+    cout << solve(n-1, 3, grid) ;
+}
