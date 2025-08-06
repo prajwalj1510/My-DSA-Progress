@@ -1655,3 +1655,61 @@ int main() {
     }
     cout << dp[n-1][maxW] ;
 }
+
+Space Optimized:
+#include <bits/stdc++.h>
+using namespace std;
+
+int solve(int ind, int W, vector<int> &wt, vector<int> &val, 
+vector<vector<int>> &dp) {
+    
+    if(ind == 0) {
+        // if(wt[ind] <= W) {
+        //     return val[ind] ;
+        // }
+        // return INT_MIN ;
+        return (W/wt[ind])*val[ind]; // Can pick one item any no. of times.
+    }
+    
+    if(dp[ind][W] != -1) return dp[ind][W] ;
+    
+    int pick = INT_MIN ;
+    if(wt[ind] <= W) {
+        pick = val[ind] + solve(ind, W - wt[ind], wt, val, dp) ;
+    }
+    
+    int notPick = solve(ind-1, W, wt, val, dp) ;
+    
+    return dp[ind][W] =  max(pick, notPick) ;
+}
+
+int main() {
+    
+    vector<int> wt = {2,4,6} ;
+    vector<int> val = {5,11,13} ;
+    
+    int n = wt.size() ;
+    int maxW = 10 ;
+    
+    vector<int> prev(maxW+1,0) ;
+    
+    for(int i = wt[0] ; i <= maxW ; i++) {
+        prev[i] = (i/wt[0])*val[0] ;
+    }
+    
+    for(int ind = 1 ; ind < n ; ind++) {
+        vector<int> curr(maxW+1,0) ;
+        for(int w = wt[0] ; w <= maxW; w++) {
+            int pick = INT_MIN ;
+            if(wt[ind] <= w) {
+                pick = val[ind] + curr[w-wt[ind]] ;
+            }
+            
+            int notPick = prev[w] ;
+            
+            curr[w] =  max(pick, notPick) ;
+        }
+        prev = curr ;
+    }
+    cout << prev[maxW] ;
+}
