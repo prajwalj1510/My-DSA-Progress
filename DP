@@ -1258,9 +1258,12 @@ int main() {
     subSet(0, arr, dp, ans) ;
     
     for(vector<int> nums : ans){
+        cout << "[ " ;
         for(int num : nums) {
             cout << num ;
         }
-        cout << endl ;
+        cout << " ] | " ;
     }
 }
+Output:
+[ 1234 ] | [ 123 ] | [ 124 ] | [ 12 ] | [ 134 ] | [ 13 ] | [ 14 ] | [ 1 ] | [ 234 ] | [ 23 ] | [ 24 ] | [ 2 ] | [ 34 ] | [ 3 ] | [ 4 ] | [  ] | 
