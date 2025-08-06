@@ -1521,3 +1521,41 @@ int main() {
     cout << "Found:" << prev[target] << endl ;
 }
 Output: Found:1
+=============================================================================================================================================================================================================
+Unbounded-KnapSack: Recursion
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int solve(int ind, int W, vector<int> &wt, vector<int> &val) {
+    
+    if(ind == 0) {
+        // if(wt[ind] <= W) {
+        //     return val[ind] ;
+        // }
+        // return INT_MIN ;
+        return (W/wt[ind])*val[ind]; // Can pick one item any no. of times.
+    }
+    
+    int pick = INT_MIN ;
+    if(wt[ind] <= W) {
+        pick = val[ind] + solve(ind, W - wt[ind], wt, val) ;
+    }
+    
+    int notPick = solve(ind-1, W, wt, val) ;
+    
+    return max(pick, notPick) ;
+}
+
+int main() {
+    
+    vector<int> wt = {2,4,6} ;
+    vector<int> val = {5,11,13} ;
+    
+    int n = wt.size() ;
+    int maxW = 10 ;
+    
+    cout << solve(n-1, maxW, wt, val) ;
+}
+
+Output: 27
