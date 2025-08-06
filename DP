@@ -1285,9 +1285,11 @@ void subSet(int ind, int target , vector<int> &arr, vector<int> &dp, vector<vect
     }
     
     // Pick
-    dp.push_back(arr[ind]) ;
-    subSet(ind+1, target - arr[ind] ,arr, dp, ans) ;
-    dp.pop_back() ;
+    if( arr[ind] <= target) {
+        dp.push_back(arr[ind]) ;
+        subSet(ind+1, target - arr[ind] ,arr, dp, ans) ;
+        dp.pop_back() ;
+    } 
     
     // Not Pick
     subSet(ind+1, target, arr, dp, ans) ;
@@ -1331,7 +1333,8 @@ bool subSet(int ind, int target , vector<int> &arr) {
     
     // Pick
 
-    bool pick = subSet(ind-1, target - arr[ind],arr) ;
+    bool pick = false ;
+    if(arr[ind] <= target) pick = subSet(ind-1, target - arr[ind],arr) ;
     
     // Not Pick
     bool notPick = subSet(ind-1, target, arr) ;
@@ -1366,7 +1369,8 @@ bool subSet(int ind, int target , vector<int> &arr, vector<vector<bool>> &dp) {
     
     // Pick
 
-    bool pick = subSet(ind-1, target - arr[ind],arr, dp) ;
+    bool pick = false ;
+    if(arr[ind] <= target) pick = subSet(ind-1, target - arr[ind],arr, dp) ;
     
     // Not Pick
     bool notPick = subSet(ind-1, target, arr, dp) ;
