@@ -1228,3 +1228,39 @@ int main() {
     cout << prev[3] ;
     
 }
+=============================================================================================================================================================================================================
+#include<bits/stdc++.h>
+using namespace std;
+
+void subSet(int ind, vector<int> &arr, vector<int> &dp, vector<vector<int>> &ans) {
+    
+    if(ind == arr.size()) {
+        ans.push_back(dp) ;
+        return; 
+    }
+    
+    // Pick
+    dp.push_back(arr[ind]) ;
+    subSet(ind+1, arr, dp, ans) ;
+    dp.pop_back() ;
+    
+    // Not Pick
+    subSet(ind+1, arr, dp, ans) ;
+}
+
+int main() {
+    vector<int> arr = {1,2,3,4} ;
+    int n = arr.size() ;
+    
+    vector<vector<int>> ans ;
+    vector<int> dp ;
+    
+    subSet(0, arr, dp, ans) ;
+    
+    for(vector<int> nums : ans){
+        for(int num : nums) {
+            cout << num ;
+        }
+        cout << endl ;
+    }
+}
