@@ -1313,3 +1313,38 @@ int main() {
 }
 Output:
 [ 1 3 ] | [ 4 ] | 
+
+// Same same but Different return Types
+
+#include<bits/stdc++.h>
+using namespace std;
+
+bool subSet(int ind, int target , vector<int> &arr) {
+    
+    if(target == 0) {
+        return true ;
+    }
+    
+    if(ind == -1) {
+        return false;
+    }
+    
+    // Pick
+
+    bool pick = subSet(ind-1, target - arr[ind],arr) ;
+    
+    // Not Pick
+    bool notPick = subSet(ind-1, target, arr) ;
+    
+    return pick || notPick ;
+}
+
+int main() {
+    vector<int> arr = {1,2,3,4} ;
+    int n = arr.size() ;
+    int target = 10 ; 
+    
+    subSet(n-1, target, arr) ? cout << "true" : cout << "false";
+}
+Output: true
+
