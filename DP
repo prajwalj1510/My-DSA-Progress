@@ -1559,3 +1559,43 @@ int main() {
 }
 
 Output: 27
+
+Recursion + Memoization
+#include <bits/stdc++.h>
+using namespace std;
+
+int solve(int ind, int W, vector<int> &wt, vector<int> &val, 
+vector<vector<int>> &dp) {
+    
+    if(ind == 0) {
+        // if(wt[ind] <= W) {
+        //     return val[ind] ;
+        // }
+        // return INT_MIN ;
+        return (W/wt[ind])*val[ind]; // Can pick one item any no. of times.
+    }
+    
+    if(dp[ind][W] != -1) return dp[ind][W] ;
+    
+    int pick = INT_MIN ;
+    if(wt[ind] <= W) {
+        pick = val[ind] + solve(ind, W - wt[ind], wt, val, dp) ;
+    }
+    
+    int notPick = solve(ind-1, W, wt, val, dp) ;
+    
+    return dp[ind][W] =  max(pick, notPick) ;
+}
+
+int main() {
+    
+    vector<int> wt = {2,4,6} ;
+    vector<int> val = {5,11,13} ;
+    
+    int n = wt.size() ;
+    int maxW = 10 ;
+    
+    vector<vector<int>> dp(n,vector<int>(maxW+1,-1)) ;
+    
+    cout << solve(n-1, maxW, wt, val, dp) ;
+}
