@@ -1599,3 +1599,59 @@ int main() {
     
     cout << solve(n-1, maxW, wt, val, dp) ;
 }
+
+Tabulation:
+#include <bits/stdc++.h>
+using namespace std;
+
+int solve(int ind, int W, vector<int> &wt, vector<int> &val, 
+vector<vector<int>> &dp) {
+    
+    if(ind == 0) {
+        // if(wt[ind] <= W) {
+        //     return val[ind] ;
+        // }
+        // return INT_MIN ;
+        return (W/wt[ind])*val[ind]; // Can pick one item any no. of times.
+    }
+    
+    if(dp[ind][W] != -1) return dp[ind][W] ;
+    
+    int pick = INT_MIN ;
+    if(wt[ind] <= W) {
+        pick = val[ind] + solve(ind, W - wt[ind], wt, val, dp) ;
+    }
+    
+    int notPick = solve(ind-1, W, wt, val, dp) ;
+    
+    return dp[ind][W] =  max(pick, notPick) ;
+}
+
+int main() {
+    
+    vector<int> wt = {2,4,6} ;
+    vector<int> val = {5,11,13} ;
+    
+    int n = wt.size() ;
+    int maxW = 10 ;
+    
+    vector<vector<int>> dp(n,vector<int>(maxW+1,0)) ;
+    
+    for(int i = wt[0] ; i <= maxW ; i++) {
+        dp[0][i] = (i/wt[0])*val[0] ;
+    }
+    
+    for(int ind = 1 ; ind < n ; ind++) {
+        for(int w = wt[0] ; w <= maxW; w++) {
+            int pick = INT_MIN ;
+            if(wt[ind] <= w) {
+                pick = val[ind] + dp[ind][w-wt[ind]] ;
+            }
+            
+            int notPick = dp[ind-1][w] ;
+            
+            dp[ind][w] =  max(pick, notPick) ;
+        }
+    }
+    cout << dp[n-1][maxW] ;
+}
