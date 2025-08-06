@@ -1348,3 +1348,39 @@ int main() {
 }
 Output: true
 
+Recursion + Memoization:
+#include<bits/stdc++.h>
+using namespace std;
+
+bool subSet(int ind, int target , vector<int> &arr, vector<vector<bool>> &dp) {
+    
+    if(target == 0) {
+        return true ;
+    }
+    
+    if(ind == -1) {
+        return false;
+    }
+    
+    if(dp[ind][target] != -1) return dp[ind][target] ;
+    
+    // Pick
+
+    bool pick = subSet(ind-1, target - arr[ind],arr, dp) ;
+    
+    // Not Pick
+    bool notPick = subSet(ind-1, target, arr, dp) ;
+    
+    return dp[ind][target] =  pick || notPick ;
+}
+
+int main() {
+    vector<int> arr = {1,2,3,4} ;
+    int n = arr.size() ;
+    int target = 10 ; 
+    
+    vector<vector<bool>> dp(n, vector<bool>(target+1, -1)) ;
+    subSet(n-1, target, arr, dp) ? cout << "true" : cout << "false";
+}
+Output: true 
+
