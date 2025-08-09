@@ -1,5 +1,5 @@
 #include<bits/stdc++.h> 
-using namespace std;
+using namespace std
 // Max sum of non-adjacent elements: Recursion 
 int solve(int index, vector<int> &arr) {
     // Base Cond
