@@ -1,0 +1,167 @@
+#include <bits/stdc++.h>
+using namespace std ;
+
+// struct Node {
+    
+//     public:
+//     int data ;
+//     Node* next ;
+    
+//     public:
+//     Node(int data1, Node* next1) {
+//         data = data1 ;
+//         next = next1 ;
+//     }  
+// };
+class Node {
+    
+    public:
+    int data ;
+    Node* next ;
+    
+    Node() {
+        data ;
+        next = nullptr ;
+    }
+    
+    public:
+    Node(int data1) {
+        data = data1 ;
+        next = nullptr ;
+    }
+    
+};
+
+Node* convertArr2LL(vector<int> &arr) {
+    Node* head = new Node(arr[0]) ;
+    Node* track = head ;
+    
+    for(int i = 1 ; i < arr.size() ; i++) {
+        Node* temp = new Node(arr[i]) ;
+        track->next = temp ;
+        track = temp ;
+    }
+    
+    return head ; 
+}
+
+void traversal(Node* head) {
+    while(head != NULL) {
+        cout << head->data << " " ;
+        head = head->next ;
+    }
+}
+
+Node* removeHead(Node* head) {
+    
+    if(head == NULL || head->next == NULL) return nullptr ;
+    
+    Node* temp = head ;
+    head = head->next ;
+    free(temp) ;
+    return head ;
+}
+
+Node* removeTail(Node* head) {
+    
+    if(head == NULL || head->next == NULL) return nullptr ;
+    
+    Node* temp = head ;
+    Node* dummy ;
+    
+    while(temp->next->next) {
+        temp = temp->next ;
+    }
+    
+    dummy = temp->next ;
+    // cout << dummy->data ;
+    delete dummy ;
+    
+    temp->next = NULL ;
+    return head ;
+}
+
+Node* deleteKthNode(Node* head, int k) {
+    if(head == NULL) return NULL ;
+    
+    if(k == 1) {
+        Node* temp = head ;
+        head = head->next ;
+        delete temp ;
+        return head ;
+    }
+    
+    int cnt = 0 ;
+    Node* temp = head;
+    Node* prev ;
+    
+    while(temp != NULL) {
+        cnt++ ;
+        
+        if(cnt == k) {
+            prev->next = prev->next->next ;
+            free(temp);
+            break;
+        }
+        
+        prev = temp ;
+        temp = temp->next ;
+    }
+    
+    return head ;
+}
+
+Node* removeEl(Node* head, int el) {
+    if(head == NULL) return NULL ;
+    
+    if(head->data == el) {
+        Node* temp = head ;
+        head = head->next ;
+        delete temp ;
+        return head; 
+    }
+    
+    Node* temp = head ;
+    Node* prev ;
+    
+    while(temp != NULL) {
+        if(temp->data == el) {
+            prev->next = prev->next->next ;
+            break ;
+        }
+        
+        prev = temp ;
+        temp = temp->next ;
+    }
+    
+    return head ;
+}
+
+int main() {
+    
+   vector<int> arr = {1,2,3,4,5} ;
+   
+   Node* head = convertArr2LL(arr) ;
+   traversal(head);
+   
+   cout << endl ;
+   
+   head = removeHead(head) ;
+   traversal(head) ;
+   
+   cout << endl ;
+   
+   head = removeTail(head) ;
+   traversal(head) ;
+   
+   cout<< endl ;
+   
+   head = deleteKthNode(head, 2) ;
+   traversal(head) ;
+   
+   cout<< endl ;
+   
+   head = removeEl(head, 2) ;
+   traversal(head) ;
+   
+}
