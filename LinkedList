@@ -192,35 +192,30 @@ int main() {
    traversal(head);
    
    cout << endl ;
-   
    head = removeHead(head) ;
    traversal(head) ;
    
    cout << endl ;
-   
    head = removeTail(head) ;
    traversal(head) ;
    
    cout<< endl ;
-   
    head = deleteKthNode(head, 2) ;
    traversal(head) ;
    
    cout<< endl ;
-   
    head = removeEl(head, 2) ;
-   traversal(head) ;
-
-    head = addNodeFront(head, 2) ;
    traversal(head) ;
    
    cout<< endl ;
+   head = addNodeFront(head, 2) ;
+   traversal(head) ;
    
+   cout<< endl ;
    head = addNodeBack(head, 5) ;
    traversal(head) ;
    
    cout<< endl ;
-   
    head = addNode(head, 2, 3) ;
    traversal(head) ;
    
@@ -234,4 +229,4 @@ Output:
 4 
 2 4 
 2 4 5 
-2 3 4 5
+2 3 4 5 
