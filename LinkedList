@@ -137,6 +137,53 @@ Node* removeEl(Node* head, int el) {
     return head ;
 }
 
+Node* addNodeFront(Node* head , int el) {
+    Node* temp = new Node(el) ;
+    temp->next = head ;
+    head = temp ;
+    return head ;
+}
+
+Node* addNode(Node* head, int pos, int el) {
+    
+    if(pos == 1) {
+        Node* temp = new Node(el) ;
+        temp->next = head ;
+        head = temp ;
+        return head ;
+    }
+    
+    int cnt = 0 ;
+    Node* track = head ;
+    Node* prev ;
+    
+    while(track != NULL) {
+        cnt++ ;
+        if(cnt == pos) {
+            Node*temp = new Node(el) ;
+            temp->next = track ;
+            prev->next = temp ;
+            break ;
+        }
+        prev = track ;
+        track = track->next ;
+    }
+    
+    return head ;
+}
+
+Node* addNodeBack(Node* head, int el) {
+    Node* temp = new Node(el) ;
+    Node* track = head ;
+    
+    while(track->next) {
+        track = track->next ;
+    }
+    
+    track->next = temp ;
+    return head ;
+}
+
 int main() {
     
    vector<int> arr = {1,2,3,4,5} ;
@@ -162,6 +209,19 @@ int main() {
    cout<< endl ;
    
    head = removeEl(head, 2) ;
+   traversal(head) ;
+
+    head = addNodeFront(head, 2) ;
+   traversal(head) ;
+   
+   cout<< endl ;
+   
+   head = addNodeBack(head, 5) ;
+   traversal(head) ;
+   
+   cout<< endl ;
+   
+   head = addNode(head, 2, 3) ;
    traversal(head) ;
    
 }
